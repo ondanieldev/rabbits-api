@@ -1,25 +1,27 @@
-import { CacheFakeService } from 'providers/cache/services/cache-fake.service';
 import { HashFakeService } from 'providers/hash/services/hash-fake.service';
 import { HashService } from 'providers/hash/services/hash.service';
 
 import {
-  UserConflictException,
+  UserEmailConflictException,
   UserNotFoundException,
 } from '../exceptions/user.exception';
 import { UserFakeRepository } from '../repositories/user-fake.repository';
 import { UserRepository } from '../repositories/user.repository';
+import { UserEmailService } from './user-email.service';
 import { UserService } from './user.service';
 
 describe('UserService', () => {
   let service: UserService;
   let hashService: HashService;
   let userRepository: UserRepository;
+  let userEmailService: UserEmailService;
 
   beforeEach(async () => {
     hashService = new HashFakeService();
     userRepository = new UserFakeRepository();
+    userEmailService = new UserEmailService(userRepository);
 
-    service = new UserService(hashService, userRepository);
+    service = new UserService(hashService, userRepository, userEmailService);
   });
 
   it('should create a default user on module init', async () => {
@@ -46,7 +48,7 @@ describe('UserService', () => {
         email: 'john.doe@example.com',
         password: 'password',
       });
-    }).rejects.toThrow(UserConflictException);
+    }).rejects.toThrow(UserEmailConflictException);
   });
 
   it('should read an user', async () => {

@@ -1,5 +1,4 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { instanceToPlain } from 'class-transformer';
 
 import {
   OffsetPaginated,
