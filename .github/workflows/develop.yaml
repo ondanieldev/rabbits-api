@@ -43,8 +43,10 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            nvm use --lts
             cd ~/rabbits-api
             cp ~/backup/rabbits-api/.env ~/rabbits-api/.env 
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            nvm use --lts
             yarn install
             yarn docker
