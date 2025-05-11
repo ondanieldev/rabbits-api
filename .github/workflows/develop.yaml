@@ -44,7 +44,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd ~/rabbits-api
-            cp ~/backup/rabbits-api/.env ~/rabbits-api/.env 
+            cp ~/backup/.env ~/rabbits-api/.env 
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
             nvm use --lts
