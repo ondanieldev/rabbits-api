@@ -6,7 +6,6 @@ import {
   OffsetPaginationBo,
 } from 'common/bos/offset-pagination.bo';
 
-import { CacheService } from 'providers/cache/services/cache.service';
 import { HashService } from 'providers/hash/services/hash.service';
 
 import { CreateUserBo } from '../bos/user.bo';
@@ -18,7 +17,6 @@ import { UserEmailService } from './user-email.service';
 @Injectable()
 export class UserService implements OnModuleInit {
   constructor(
-    private readonly cacheService: CacheService,
     private readonly hashService: HashService,
     private readonly userRepository: UserRepository,
     private readonly userEmailService: UserEmailService,
@@ -70,22 +68,13 @@ export class UserService implements OnModuleInit {
     limit,
     page,
   }: OffsetPaginationBo): Promise<OffsetPaginated<UserEntity>> {
-    let users = await this.cacheService.get<OffsetPaginated<UserEntity>>(
-      `users:${limit}:${page}`,
-    );
-    if (!users) {
-      users = await this.userRepository.findMany({
-        data: {},
-        pagination: {
-          limit,
-          page,
-        },
-      });
-      await this.cacheService.set(
-        `users:${limit}:${page}`,
-        instanceToPlain(users),
-      );
-    }
+    const users = await this.userRepository.findMany({
+      data: {},
+      pagination: {
+        limit,
+        page,
+      },
+    });
 
     return users;
   }

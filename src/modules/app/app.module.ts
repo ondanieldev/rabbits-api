@@ -4,7 +4,7 @@ import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { AppointmentModule } from 'modules/appointment/appointment.module';
 import { TaskModule } from 'modules/tasks/task.module';
 
-import { CacheModule } from 'providers/cache/cache.module';
+// import { CacheModule } from 'providers/cache/cache.module';
 import { EmailModule } from 'providers/email/email.module';
 import { HashModule } from 'providers/hash/hash.module';
 import { PostgresqlModule } from 'providers/postgresql/postgresql.module';
@@ -18,7 +18,7 @@ import { UserModule } from '../user/user.module';
   imports: [
     AuthModule,
     AppointmentModule,
-    CacheModule,
+    // CacheModule,
     EmailModule,
     HashModule,
     PostgresqlModule,

@@ -7,7 +7,6 @@ import { UserRepository } from 'modules/user/repositories/user.repository';
 import { UserTokenService } from 'modules/user/services/user-token.service';
 import { UserService } from 'modules/user/services/user.service';
 
-import { CacheService } from 'providers/cache/services/cache.service';
 import { HashFakeService } from 'providers/hash/services/hash-fake.service';
 import { HashService } from 'providers/hash/services/hash.service';
 import { JwtFakeService } from 'providers/jwt/services/jwt-fake.service';
@@ -17,7 +16,6 @@ import { AuthService } from './auth.service';
 describe('AuthService', () => {
   let service: AuthService;
 
-  let cacheService: CacheService;
   let hashService: HashService;
   let jwtService: JwtService;
   let userRepository: UserRepository;
@@ -26,14 +24,13 @@ describe('AuthService', () => {
   let userTokenService: UserTokenService;
 
   beforeEach(async () => {
-    cacheService = new CacheService();
     hashService = new HashFakeService();
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment -- this fake just mock used functions and does not implement all methods of the real service
     // @ts-ignore
     jwtService = new JwtFakeService();
     userRepository = new UserFakeRepository();
     userTokenRepository = new UserTokenRepository();
-    userService = new UserService(cacheService, hashService, userRepository);
+    userService = new UserService(hashService, userRepository);
     userTokenService = new UserTokenService(jwtService, userTokenRepository);
 
     service = new AuthService(hashService, userService, userTokenService);

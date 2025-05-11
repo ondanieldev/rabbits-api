@@ -1,5 +1,4 @@
 import { CacheFakeService } from 'providers/cache/services/cache-fake.service';
-import { CacheService } from 'providers/cache/services/cache.service';
 import { HashFakeService } from 'providers/hash/services/hash-fake.service';
 import { HashService } from 'providers/hash/services/hash.service';
 
@@ -13,16 +12,14 @@ import { UserService } from './user.service';
 
 describe('UserService', () => {
   let service: UserService;
-  let cacheService: CacheService;
   let hashService: HashService;
   let userRepository: UserRepository;
 
   beforeEach(async () => {
-    cacheService = new CacheFakeService();
     hashService = new HashFakeService();
     userRepository = new UserFakeRepository();
 
-    service = new UserService(cacheService, hashService, userRepository);
+    service = new UserService(hashService, userRepository);
   });
 
   it('should create a default user on module init', async () => {
