@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { CacheModule } from 'providers/cache/cache.module';
+// import { CacheModule } from 'providers/cache/cache.module';
 import { EmailModule } from 'providers/email/email.module';
 import { HashModule } from 'providers/hash/hash.module';
 
@@ -35,7 +35,7 @@ import { VerifyEmailService } from './services/verify-email.service';
   ],
   exports: [UserRepository, UserService, UserTokenService],
   imports: [
-    CacheModule,
+    // CacheModule,
     EmailModule,
     HashModule,
     TypeOrmModule.forFeature([UserTypeormEntity, UserTokenTypeormEntity]),
